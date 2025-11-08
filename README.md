@@ -49,7 +49,7 @@ Then, it tries to claim the reward for all of the clients concurrently, and wait
 
 ## Implementation Roadmap
 
-### Official API
+### Official API (intended enpoints)
 - [x] Get Top Coins
 - [x] Get Market Data
 - [x] Get Coin Details
@@ -57,7 +57,7 @@ Then, it tries to claim the reward for all of the clients concurrently, and wait
 - [ ] Get Prediction Markets (Hopium)
 - [ ] Get Prediction Market Details
 
-### Unofficial API
+### Unofficial API (non-documented. Requires cookies)
 - [x] Claim rewards
 - [ ] Get Coin Comments
 - [ ] Portfolio (total/summary)
