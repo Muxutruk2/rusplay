@@ -2,6 +2,15 @@
 name = "rusplay"
 version = "0.1.0"
 edition = "2024"
+authors = ["Muxutruk"]
+description = "Memory safe, blazing fast Rugplay library written in Rust"
+readme = "README.md"
+homepage = "https://github.com/Muxutruk2/rusplay"
+repository = "https://github.com/Muxutruk2/rusplay"
+license = "MIT"
+license-file = "LICENSE.txt"
+keywords = ["rugplay", "api", "client"]
+categories = ["api-bindings", "asynchronous", "finance", "games", "simulation"]
 
 [dependencies]
 anyhow = "1.0.100"
