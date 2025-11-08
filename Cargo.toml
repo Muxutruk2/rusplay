@@ -8,7 +8,6 @@ readme = "README.md"
 homepage = "https://github.com/Muxutruk2/rusplay"
 repository = "https://github.com/Muxutruk2/rusplay"
 license = "MIT"
-license-file = "LICENSE.txt"
 keywords = ["rugplay", "api", "client"]
 categories = ["api-bindings", "asynchronous", "finance", "games", "simulation"]
 
