@@ -24,6 +24,10 @@ tracing = "0.1.41"
 tracing-subscriber = { version = "0.3.20", features = ["env-filter"] }
 url = "2.5.7"
 
+[dev-dependencies]
+httpmock = "0.7"
+regex = "1.0"
+
 [[bin]]
 name = "collector"
 
