@@ -169,6 +169,37 @@ impl RugplayClient {
         }
     }
 
+    /// Returns prediction market questions with pagination and filtering options.
+    ///
+    /// ## Arguments:
+    /// - hopium_status - Which types of questions to search
+    /// - limit - Number of holders to return, max 100 (default: 50)
+    /// - page - Page number (default: 1)
+    pub async fn get_hopium(
+        &self,
+        hopium_status: HopiumFilter,
+        limit: Option<u32>,
+        page: Option<u32>,
+    ) -> Result<HopiumResponse> {
+        let params = &[
+            ("limit", &limit.unwrap_or(20).to_string()[..]),
+            ("status", &hopium_status.to_string()),
+            ("page", &page.unwrap_or(1).to_string()),
+        ];
+        self.get("hopium", Some(params)).await
+    }
+
+    /// Returns detailed information about a specific prediction market question including recent bets and probability history.
+    ///
+    /// ## Arguments
+    ///
+    /// - question_id - Hopium question to get
+    pub async fn get_hopium_details(&self, question_id: u32) -> Result<HopiumDetailsResponse> {
+        let endpoint = format!("hopium/{question_id}");
+
+        self.get(&endpoint, None).await
+    }
+
     // ---- Unofficial API ----
     pub async fn get_claim_info(&self) -> Result<ClaimInfo> {
         self.get("../rewards/claim", None).await

@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -135,7 +137,7 @@ pub struct HopiumResponse {
 pub struct HopiumQuestion {
     pub id: u64,
     pub question: String,
-    pub status: String,
+    pub status: HopiumStatus,
     pub resolution_date: Option<String>,
     pub total_amount: f64,
     pub yes_amount: f64,
@@ -143,7 +145,45 @@ pub struct HopiumQuestion {
     pub yes_percentage: f64,
     pub no_percentage: f64,
     pub created_at: String,
-    pub creator: Option<HopiumCreator>,
+    pub creator: HopiumCreator,
+}
+
+#[derive(Debug, Deserialize, PartialEq, PartialOrd)]
+pub enum HopiumStatus {
+    ACTIVE,
+    RESOLVED,
+    CANCELLED,
+}
+
+impl TryFrom<&str> for HopiumFilter {
+    type Error = ();
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "ACTIVE" => Ok(Self::ACTIVE),
+            "RESOLVED" => Ok(Self::RESOLVED),
+            "CANCELLED" => Ok(Self::CANCELLED),
+            _ => Err(()),
+        }
+    }
+}
+
+#[derive(Debug, Deserialize, PartialEq, PartialOrd)]
+pub enum HopiumFilter {
+    ACTIVE,
+    RESOLVED,
+    CANCELLED,
+    ALL,
+}
+
+impl Display for HopiumFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            HopiumFilter::ACTIVE => write!(f, "ACTIVE"),
+            HopiumFilter::RESOLVED => write!(f, "RESOLVED"),
+            HopiumFilter::CANCELLED => write!(f, "CANCELLED"),
+            HopiumFilter::ALL => write!(f, "ALL"),
+        }
+    }
 }
 
 #[derive(Debug, Deserialize)]
@@ -169,6 +209,7 @@ pub struct HopiumQuestionDetails {
     pub id: u64,
     pub question: String,
     pub status: String,
+    pub creator: HopiumCreator,
     pub total_amount: f64,
     pub yes_amount: f64,
     pub no_amount: f64,
