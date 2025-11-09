@@ -12,3 +12,6 @@ devenv.local.yaml
 .pre-commit-config.yaml
 
 *.jsonl
+
+# Editors
+*.vim
