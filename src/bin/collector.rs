@@ -45,7 +45,8 @@ async fn main() -> anyhow::Result<()> {
             let span = tracing::info_span!("collector", user = %u.name);
             async move {
                 info!("Spawning task: {}", u.name);
-                let client = RugplayClient::new(u.api_key, u.cookie);
+                let client = RugplayClient::new(u.api_key, u.cookie, None)
+                    .expect("Could not create Rugplay Client");
                 claim_loop(client).instrument(span).await;
             }
         })

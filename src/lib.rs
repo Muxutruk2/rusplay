@@ -36,26 +36,38 @@ pub enum RugplayError {
 
 pub type Result<T> = std::result::Result<T, RugplayError>;
 
+#[derive(Debug, Error)]
+pub enum ClientCreateError {
+    #[error("Invalid URL")]
+    InvalidUrl(#[from] url::ParseError),
+    #[error("Could not build HTTP Client")]
+    ReqwestError(#[from] reqwest::Error),
+}
+
 impl RugplayClient {
     /// Create a new Client with a token and an optional cookie
     ///
     /// The cookie is necessary for running non-official API calls
-    pub fn new(token: impl Into<String>, cookie: Option<String>) -> Self {
+    pub fn new(
+        token: impl Into<String>,
+        cookie: Option<String>,
+        url: Option<&str>,
+    ) -> std::result::Result<Self, ClientCreateError> {
         let jar = Arc::new(Jar::default());
-        let base_url: Url = Url::from_str("https://rugplay.com/api/v1").unwrap();
+        let base_url: Url = Url::from_str(url.unwrap_or("https://rugplay.com/api/v1"))?;
         // Insert the auth cookie
         if let Some(cookie) = cookie {
             let cookie_value = cookie;
             jar.add_cookie_str(&cookie_value, &base_url);
         }
 
-        let http = HttpClient::builder().cookie_provider(jar).build().unwrap();
+        let http = HttpClient::builder().cookie_provider(jar).build()?;
 
-        Self {
-            base_url: "https://rugplay.com/api/v1".into(),
+        Ok(Self {
+            base_url: url.unwrap_or("https://rugplay.com/api/v1").into(),
             token: token.into(),
             http,
-        }
+        })
     }
 
     async fn get<T: for<'de> Deserialize<'de>>(
