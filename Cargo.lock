@@ -1860,6 +1860,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "rusplay"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9e809c6d469d14413b9c6fcbc7a0edc726763db0028110a2bbc2e7265c56dbd0"
+dependencies = [
+ "chrono",
+ "futures",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.17",
+ "tokio",
+ "tracing",
+ "url",
+]
+
+[[package]]
 name = "rusplay_collector"
 version = "0.1.0"
 dependencies = [
@@ -1867,7 +1884,7 @@ dependencies = [
  "chrono",
  "clap",
  "futures",
- "rusplay",
+ "rusplay 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "tokio",
  "toml",
