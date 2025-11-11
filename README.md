@@ -54,8 +54,8 @@ Then, it tries to claim the reward for all of the clients concurrently, and wait
 - [x] Get Market Data
 - [x] Get Coin Details
 - [x] Get Coin Holders
-- [ ] Get Prediction Markets (Hopium)
-- [ ] Get Prediction Market Details
+- [x] Get Prediction Markets (Hopium)
+- [x] Get Prediction Market Details
 
 ### Unofficial API (non-documented. Requires cookies)
 - [x] Claim rewards
