@@ -37,7 +37,24 @@ async fn main() -> Result<(), RugplayError> {
 
 To use the built-in `collector` program, run `cargo install rusplay`
 
-The program parses a `tokens.toml` file with this format:
+```
+Helper program to automatically collect rewards in multiple rugplay clients
+
+Usage: collector <TOKEN_FILE>
+
+Arguments:
+  <TOKEN_FILE>
+          TOML File containing the name, tokens and cookies of each Rugplay client
+
+Options:
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+```
+
+The program parses a toml file with this format:
 
 ```
 [[tokens]]
@@ -51,7 +68,7 @@ api_key = "rgpl_xxxxxxxxxxxxxxxx"
 cookie = "__Secure-better-auth.session_token=xxxxxxxxxxxxxxxxxxxx"
 ```
 
-Then, it tries to claim the reward for all of the clients concurrently, and waits for each client the necessary time to claim the reward.
+Then, it tries to claim the reward for all of the clients concurrently, and waits for each client the necessary time to claim the reward. Runs infinitely.
 
 ## Implementation Roadmap
 

@@ -1,5 +1,6 @@
 use anyhow::Context;
 use chrono::Utc;
+use clap::Parser;
 use futures::stream::{self, StreamExt};
 use rusplay::{RugplayClient, models::RewardStatus};
 use serde::Deserialize;
@@ -20,6 +21,14 @@ struct UserCreds {
     pub cookie: Option<String>,
 }
 
+#[derive(Parser)]
+#[command(version, about, long_about, author)]
+/// Helper program to automatically collect rewards in multiple rugplay clients
+struct Args {
+    /// TOML File containing the name, tokens and cookies of each Rugplay client
+    token_file: String,
+}
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
@@ -27,7 +36,9 @@ async fn main() -> anyhow::Result<()> {
         .with_env_filter(EnvFilter::from_default_env())
         .init();
 
-    let mut file = File::open("tokens.toml")?;
+    let args = Args::parse();
+
+    let mut file = File::open(args.token_file)?;
 
     let mut contents = String::new();
 
