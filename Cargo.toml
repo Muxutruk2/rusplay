@@ -1,35 +1,3 @@
-[package]
-name = "rusplay"
-version = "0.1.1"
-edition = "2024"
-authors = ["Muxutruk"]
-description = "Memory safe, blazing fast Rugplay library written in Rust"
-readme = "README.md"
-homepage = "https://github.com/Muxutruk2/rusplay"
-repository = "https://github.com/Muxutruk2/rusplay"
-license = "MIT"
-keywords = ["rugplay", "api", "client"]
-categories = ["api-bindings", "asynchronous", "finance", "games", "simulation"]
-
-[dependencies]
-anyhow = "1.0.100"
-chrono = "0.4.42"
-clap = { version = "4.5.51", features = ["derive"] }
-futures = "0.3.31"
-reqwest = { version = "0.12.24", features = ["cookies", "json", "rustls-tls"] }
-serde = { version = "1.0.228", features = ["derive"] }
-serde_json = "1.0.145"
-thiserror = "2.0.17"
-tokio = { version = "1.48.0", features = ["full"] }
-toml = "0.9.8"
-tracing = "0.1.41"
-tracing-subscriber = { version = "0.3.20", features = ["env-filter"] }
-url = "2.5.7"
-
-[dev-dependencies]
-httpmock = "0.7"
-regex = "1.0"
-
-[[bin]]
-name = "collector"
-
+[workspace]
+members = ["rusplay", "collector"]
+resolver = "2"
