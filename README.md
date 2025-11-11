@@ -35,12 +35,12 @@ async fn main() -> Result<(), RugplayError> {
 
 ### Collector
 
-To use the built-in `collector` program, run `cargo install rusplay`
+To use the `collector` program, run `cargo install rusplay_collector`
 
 ```
 Helper program to automatically collect rewards in multiple rugplay clients
 
-Usage: collector <TOKEN_FILE>
+Usage: rusplay_collector <TOKEN_FILE>
 
 Arguments:
   <TOKEN_FILE>
