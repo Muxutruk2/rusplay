@@ -1,6 +1,6 @@
 [package]
 name = "rusplay"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 authors = ["Muxutruk"]
 description = "Memory safe, blazing fast Rugplay library written in Rust"
