@@ -3,14 +3,15 @@ use chrono::Utc;
 use futures::stream::{self, StreamExt};
 use rusplay::{RugplayClient, models::RewardStatus};
 use serde::Deserialize;
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-    time::Duration,
-};
+use std::{fs::File, io::Read, time::Duration};
 use tokio::time::sleep;
 use tracing::{Instrument, debug, error, info};
 use tracing_subscriber::EnvFilter;
+
+#[derive(Deserialize, Debug)]
+struct TokensConfig {
+    pub tokens: Vec<UserCreds>,
+}
 
 #[derive(Deserialize, Debug)]
 struct UserCreds {
@@ -26,21 +27,16 @@ async fn main() -> anyhow::Result<()> {
         .with_env_filter(EnvFilter::from_default_env())
         .init();
 
-    let file = File::open("tokens.jsonl")?;
-    let reader = BufReader::new(file);
+    let mut file = File::open("tokens.toml")?;
 
-    let mut users: Vec<UserCreds> = Vec::new();
+    let mut contents = String::new();
 
-    for (line, i) in reader.lines().zip(0..) {
-        let line = line?;
-        if let Ok(creds) = serde_json::from_str::<UserCreds>(&line) {
-            users.push(creds);
-        } else {
-            info!("Error parsing line {i}: {line}");
-        };
-    }
+    file.read_to_string(&mut contents)
+        .context("Could not read file")?;
 
-    stream::iter(users)
+    let tokens = toml::from_str::<TokensConfig>(&contents).context("Could not parse tokens")?;
+
+    stream::iter(tokens.tokens)
         .for_each_concurrent(None, |u| {
             let span = tracing::info_span!("collector", user = %u.name);
             async move {

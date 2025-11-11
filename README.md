@@ -37,12 +37,18 @@ async fn main() -> Result<(), RugplayError> {
 
 To use the built-in `collector` program, run `cargo install rusplay`
 
-The program parses a `tokens.jsonl` file with this format:
+The program parses a `tokens.toml` file with this format:
 
 ```
-{"name": "NAME", "api_key": "rgpl_xxxxxxxxxxxxxxxx", "cookie": "__Secure-better-auth.session_token=xxxxxxxxxxxxxxxxxxxx;"}
-{"name": "NAME", "api_key": "rgpl_xxxxxxxxxxxxxxxx", "cookie": "__Secure-better-auth.session_token=xxxxxxxxxxxxxxxxxxxx;"}
-{"name": "NAME", "api_key": "rgpl_xxxxxxxxxxxxxxxx", "cookie": "__Secure-better-auth.session_token=xxxxxxxxxxxxxxxxxxxx;"}
+[[tokens]]
+name = "Client 1"
+api_key = "rgpl_xxxxxxxxxxxxxxxx"
+cookie = "__Secure-better-auth.session_token=xxxxxxxxxxxxxxxxxxxx"
+
+[[tokens]]
+name = "Client 2"
+api_key = "rgpl_xxxxxxxxxxxxxxxx"
+cookie = "__Secure-better-auth.session_token=xxxxxxxxxxxxxxxxxxxx"
 ```
 
 Then, it tries to claim the reward for all of the clients concurrently, and waits for each client the necessary time to claim the reward.
