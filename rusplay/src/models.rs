@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -278,4 +278,29 @@ pub struct RewardStatus {
     pub total_rewards_claimed: u32,
     pub login_streak: u32,
     pub next_claim_time: Option<String>,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub enum TradeType {
+    BUY,
+    SELL,
+}
+
+#[derive(Debug, Serialize)]
+pub struct TradeRequest {
+    pub amount: u32,
+    pub r#type: TradeType,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct TradeResponse {
+    pub success: bool,
+    pub r#type: TradeType,
+    pub coins_bought: Option<f64>,
+    pub coins_sold: Option<f64>,
+    pub total_cost: Option<u32>,
+    pub new_price: f64,
+    pub price_impact: f64,
+    pub new_balance: f64,
 }

@@ -1,5 +1,5 @@
 use reqwest::{Client as HttpClient, Method, Url, cookie::Jar};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use std::sync::Arc;
 use thiserror::Error;
@@ -91,17 +91,23 @@ impl RugplayClient {
         }
     }
 
-    async fn post<T: for<'de> Deserialize<'de>>(
+    async fn post<T: for<'de> Deserialize<'de>, J: Serialize>(
         &self,
         endpoint: &str,
         params: Option<&[(&str, &str)]>,
+        json: Option<J>,
     ) -> Result<T> {
         let url = format!("{}/{}", self.base_url, endpoint);
-        let req = self
+
+        let mut req = self
             .http
             .request(Method::POST, &url)
             .bearer_auth(&self.token)
             .query(params.unwrap_or_default());
+
+        if let Some(body) = json {
+            req = req.json(&body);
+        }
 
         let resp = req.send().await?.error_for_status()?;
 
@@ -206,6 +212,24 @@ impl RugplayClient {
     }
 
     pub async fn claim_reward(&self) -> Result<RewardStatus> {
-        self.post("../rewards/claim", None).await
+        self.post::<RewardStatus, ()>("../rewards/claim", None, None)
+            .await
+    }
+
+    pub async fn trade(
+        &self,
+        coin: &str,
+        trade_type: TradeType,
+        amount: u32,
+    ) -> Result<TradeResponse> {
+        let trade_request = TradeRequest {
+            amount,
+            r#type: trade_type,
+        };
+
+        let endpoint = format!("../coin/{coin}/trade");
+
+        self.post::<TradeResponse, TradeRequest>(&endpoint, None, Some(trade_request))
+            .await
     }
 }
