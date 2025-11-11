@@ -42,8 +42,8 @@ jobs:
         run: cargo clippy --all-targets --all-features -- -D warnings
 
       - name: Build all crates
-        run: cargo build --workspace --verbose
+        run: cargo build --workspace
 
       - name: Run tests
-        run: cargo test --workspace --verbose
+        run: cargo test --workspace
 
