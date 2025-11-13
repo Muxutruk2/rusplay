@@ -1,3 +1,5 @@
+#![deny(clippy::all)]
+
 use reqwest::{Client as HttpClient, Method, Url, cookie::Jar};
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
