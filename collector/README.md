@@ -2,6 +2,10 @@
 
 To use the `collector` program, run `cargo install rusplay_collector` or build it with `cargo build --release`
 
+## Description
+
+The collector reads from a config file, the token and cookies of the users. Then, for each one, checks wether it can claim the login reward. If it can, it collects it and waits 12h, otherwise, it waits the necessary time to get the reward.
+
 ## Usage
 
 ```
@@ -35,4 +39,13 @@ api_key = "rgpl_xxxxxxxxxxxxxxxx"
 cookie = "__Secure-better-auth.session_token=xxxxxxxxxxxxxxxxxxxx"
 ```
 
-Then, it tries to claim the reward for all of the clients concurrently, and waits for each client the necessary time to claim the reward. Runs infinitely.
+## Example 
+
+```
+DEBUG collector{user=The Important One}: rusplay_collector: Can claim!
+DEBUG collector{user=The Original}: rusplay_collector: Can claim!
+DEBUG collector{user=The Important One}: rusplay_collector: Successfully claimed reward! Won $1800, New balance: $47200.00, Login streak: 3
+DEBUG collector{user=The Important One}: rusplay_collector: Will sleep 11h 59m
+DEBUG collector{user=The Original}: rusplay_collector: Successfully claimed reward! Won $1800, New balance: $57790.00, Login streak: 3
+DEBUG collector{user=The Original}: rusplay_collector: Will sleep 11h 59m
+```
