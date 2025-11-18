@@ -1,3 +1,4 @@
+#![deny(clippy::all)]
 mod common;
 use std::time::Duration;
 

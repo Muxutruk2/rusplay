@@ -1,3 +1,4 @@
+#![deny(clippy::all)]
 use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
@@ -306,11 +307,12 @@ pub struct TradeResponse {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum TradeType {
-    BUY,
-    SELL,
-    TRANSFER_IN,
-    TRANSFER_OUT,
+    Buy,
+    Sell,
+    TransferIn,
+    TransferOut,
 }
 
 #[derive(Debug, Deserialize)]
