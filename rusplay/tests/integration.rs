@@ -137,6 +137,6 @@ async fn test_recent_trades_live() {
     println!(
         "Got {} trades. First trade: {:?}",
         response.trades.len(),
-        response.trades.get(0).unwrap()
+        response.trades.first().unwrap()
     );
 }
