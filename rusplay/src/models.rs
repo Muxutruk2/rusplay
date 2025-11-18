@@ -281,7 +281,7 @@ pub struct RewardStatus {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub enum TradeType {
+pub enum CoinTradeType {
     BUY,
     SELL,
 }
@@ -289,18 +289,48 @@ pub enum TradeType {
 #[derive(Debug, Serialize)]
 pub struct TradeRequest {
     pub amount: u32,
-    pub r#type: TradeType,
+    pub r#type: CoinTradeType,
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct TradeResponse {
     pub success: bool,
-    pub r#type: TradeType,
+    pub r#type: CoinTradeType,
     pub coins_bought: Option<f64>,
     pub coins_sold: Option<f64>,
     pub total_cost: Option<u32>,
     pub new_price: f64,
     pub price_impact: f64,
     pub new_balance: f64,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub enum TradeType {
+    BUY,
+    SELL,
+    TRANSFER_IN,
+    TRANSFER_OUT,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct RecentTradeResponse {
+    pub trades: Vec<Trade>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Trade {
+    pub amount: f64,
+    pub coin_icon: Option<String>,
+    pub coin_name: String,
+    pub coin_symbol: String,
+    pub price: f64,
+    pub timestamp: u64,
+    pub total_value: f64,
+    pub r#type: TradeType,
+    pub user_id: String,
+    pub user_image: String,
+    pub username: String,
 }

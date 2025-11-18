@@ -221,7 +221,7 @@ impl RugplayClient {
     pub async fn trade(
         &self,
         coin: &str,
-        trade_type: TradeType,
+        trade_type: CoinTradeType,
         amount: u32,
     ) -> Result<TradeResponse> {
         let trade_request = TradeRequest {
@@ -233,5 +233,13 @@ impl RugplayClient {
 
         self.post::<TradeResponse, TradeRequest>(&endpoint, None, Some(trade_request))
             .await
+    }
+
+    pub async fn get_recent_trades(&self, limit: u32) -> Result<RecentTradeResponse> {
+        self.get::<RecentTradeResponse>(
+            "../trades/recent",
+            Some(&[("limit", limit.to_string().as_str())]),
+        )
+        .await
     }
 }
