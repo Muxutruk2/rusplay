@@ -1,3 +1,4 @@
+#![deny(clippy::all)]
 use rusplay::RugplayClient;
 use std::sync::Once;
 use tracing_subscriber::{EnvFilter, fmt};

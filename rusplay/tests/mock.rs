@@ -1,3 +1,4 @@
+#![deny(clippy::all)]
 use httpmock::prelude::*;
 use rusplay::RugplayClient;
 

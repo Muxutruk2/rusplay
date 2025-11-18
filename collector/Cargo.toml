@@ -1,6 +1,6 @@
 [package]
 name = "rusplay_collector"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 authors = ["Muxutruk"]
 description = "Rugplay application to automatically collect rewards from multiple users"
@@ -12,7 +12,7 @@ keywords = ["rugplay", "api", "client"]
 categories = ["asynchronous", "finance", "games", "simulation"]
 
 [dependencies]
-rusplay = "0.1.2"
+rusplay = "0.1.6"
 anyhow = "1.0.100"
 clap = { version = "4.5.51", features = ["derive"] }
 toml = "0.9.8"

@@ -1,8 +1,9 @@
+#![deny(clippy::all)]
 mod common;
 use std::time::Duration;
 
 use common::test_client;
-use rusplay::models::TradeType;
+use rusplay::models::CoinTradeType;
 
 #[tokio::test]
 #[ignore]
@@ -111,15 +112,31 @@ async fn test_claim_reward_live() {
 #[ignore]
 async fn test_trade_live() {
     let client = test_client().expect("Missing credentials: RUGPLAY_COOKIE or RUGPLAY_TOKEN");
-    let buy = client.trade("BTC", TradeType::BUY, 1).await;
+    let buy = client.trade("BTC", CoinTradeType::BUY, 1).await;
     assert!(buy.is_ok(), "API call failed: {:?}", buy);
     let buy_response = buy.unwrap();
     println!("Buy response: {:?}", buy_response);
 
     std::thread::sleep(Duration::from_secs(1));
 
-    let sell = client.trade("BTC", TradeType::SELL, 1).await;
+    let sell = client.trade("BTC", CoinTradeType::SELL, 1).await;
     assert!(sell.is_ok(), "API call failed: {:?}", sell);
     let sell_response = sell.unwrap();
     println!("Claim reward response: {:?}", sell_response);
+}
+
+#[tokio::test]
+#[ignore]
+async fn test_recent_trades_live() {
+    let client = test_client().expect("Missing credentials: RUGPLAY_COOKIE or RUGPLAY_TOKEN");
+
+    let result = client.get_recent_trades(100).await;
+
+    assert!(result.is_ok(), "API call failed: {:?}", result);
+    let response = result.unwrap();
+    println!(
+        "Got {} trades. First trade: {:?}",
+        response.trades.len(),
+        response.trades.get(0).unwrap()
+    );
 }

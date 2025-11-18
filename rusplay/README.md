@@ -1,14 +1,17 @@
-# rusplay
+# Rusplay Library
 
 🚀 Memory safe, blazingly fast, asynchronous Rugplay library written in Rust™
 
 ## Usage
 
-### Library
+To use the library in a Rust project, run `cargo add rusplay`
 
-To use the library, run `cargo add rusplay`
+You can read the documentation here:
+
+- [Docs](https://docs.rs/rusplay/latest/rusplay/)
 
 Example of a simple program
+
 
 ```rust
 use rusplay::{RugplayClient, RugplayError, models::TopCoinsResponse};
@@ -45,9 +48,11 @@ async fn main() -> Result<(), RugplayError> {
 
 ### Unofficial API (non-documented. Requires cookies)
 - [x] Claim rewards
+- [ ] Recent trades
+- [ ] Recent trades (using websockets)
 - [ ] Get Coin Comments
 - [ ] Portfolio (total/summary)
-- [ ] Trade
+- [x] Trade
 - [ ] Bet on Hopium
 - [ ] Get Hopium info
 

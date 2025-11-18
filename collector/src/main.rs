@@ -1,3 +1,4 @@
+#![deny(clippy::all)]
 use anyhow::Context;
 use chrono::Utc;
 use clap::Parser;
