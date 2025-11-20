@@ -333,6 +333,6 @@ pub struct Trade {
     pub total_value: f64,
     pub r#type: TradeType,
     pub user_id: String,
-    pub user_image: String,
+    pub user_image: Option<String>,
     pub username: String,
 }
