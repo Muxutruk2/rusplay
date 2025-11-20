@@ -48,7 +48,7 @@ async fn main() -> Result<(), RugplayError> {
 
 ### Unofficial API (non-documented. Requires cookies)
 - [x] Claim rewards
-- [ ] Recent trades
+- [x] Recent trades
 - [ ] Recent trades (using websockets)
 - [ ] Get Coin Comments
 - [ ] Portfolio (total/summary)
